@@ -8,25 +8,24 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C OLED(U8G2_R0, U8X8_PIN_NONE, OLED_SCL, OLED_
 
 void display_menu() {
     while (1) {
-        display("Display\n[1] Test text\n[2] Test image\n[0] Exit");
+        display("Display\n[1] Test text\n[2] Test image\n[0] Exit", 100);
         String opt = get_input();
         if (opt == "0") {
         break;
         }
         if (opt == "1") {
-            display("Senpai\nCiallo~");
-            delay(2000);
+            display("Senpai\nCiallo~", 2000);
         } else if (opt == "2") {
             img_test();
             delay(2500);
         } else {
-            display("err!");
-            delay(1000);
+            display("err!", 1000);
         }
     }
 }
 
-void display(const char* info) {
+void display(const char* info, int display_time) {
+    digitalWrite(LED_BUILTIN, HIGH);
     int max_Width = OLED.getDisplayWidth() / 6;
     int y = 10;
     int spilt_len = 25;
@@ -39,6 +38,10 @@ void display(const char* info) {
             int seg_len = pos - past_len;
             if (seg_len > 0) { // 避免空行
                 char* seg = new char[seg_len + 1];
+                if (!seg) {
+                    Serial.println("[ERR]new seg failed!");
+                    return;
+                }
                 strncpy(seg, info + past_len, seg_len);
                 seg[seg_len] = '\0';
                 if (strlen(seg) > max_Width) {
@@ -49,6 +52,10 @@ void display(const char* info) {
                             tem_len = seg_len;
                         }
                         char* tem = new char[tem_len + 1];
+                        if (!tem) {
+                            Serial.println("[ERR]new    tem failed!");
+                            return;
+                        }
                         strncpy(tem, seg + start, tem_len);
                         tem[tem_len] = '\0';          // 手动添加终止符
                         // 显示当前段
@@ -69,6 +76,10 @@ void display(const char* info) {
     }
     OLED.sendBuffer();
     delay(20); // 确保缓冲区写入完成
+    if (display_time > 0) {
+        delay(display_time);
+    }
+    digitalWrite(LED_BUILTIN,LOW);
 }
 
 void img_test() {

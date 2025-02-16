@@ -44,6 +44,6 @@ static const unsigned char imageData[] U8X8_PROGMEM = {
 
 void display_menu();
 
-void display(const char* info);
+void display(const char* info, int display_time);
 
 void img_test();

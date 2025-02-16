@@ -2,4 +2,6 @@
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 
-String getReply();
+void AI_menu();
+
+String getSiliconflowReply();
