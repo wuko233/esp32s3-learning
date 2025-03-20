@@ -1,10 +1,17 @@
 #include "oled_display.h"
-
+#include "config.h"
 #include "basic.h"
 
-const int OLED_SDA = 20;
-const int OLED_SCL = 21;
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C OLED(U8G2_R0, U8X8_PIN_NONE, OLED_SCL, OLED_SDA);
+
+int setupDisplay() {
+    OLED.begin();
+    OLED.setFont(u8g2_font_wqy12_t_gb2312);
+    OLED.enableUTF8Print();
+    OLED.clearBuffer();
+    OLED.sendBuffer();
+    return 200;
+}
 
 void display_menu() {
     while (1) {

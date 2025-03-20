@@ -1,6 +1,20 @@
 #include <Arduino.h>
 #include "config.h"
 
+int returnData1();
+int returnData2();
+int returnData3();
+int returnData4();
+
+int setupLDR() {
+    analogReadResolution(12);
+    pinMode(LDR_IN1, INPUT);
+    pinMode(LDR_IN2, INPUT);
+    pinMode(LDR_IN3, INPUT);
+    pinMode(LDR_IN4, INPUT);
+    return 200;
+}
+
 struct SensorData {
   int data1;
   int data2;
@@ -9,7 +23,6 @@ struct SensorData {
 };
 
 SensorData returnAllData() {
-    int data1, data2, data3, data4;
     struct SensorData Data;
     Data.data1 = returnData1();
     Data.data2 = returnData2();

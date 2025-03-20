@@ -1,5 +1,7 @@
 #pragma once
 
+int setupLDR();
+
 struct SensorData;
 
 SensorData returnAllData();

@@ -1,5 +1,8 @@
 #pragma once
+#include <stdint.h> 
+int setupMotor();
 
-int stepDelay;
 
-void rotateMotor(int steps, bool clockwise);
+typedef uint8_t (*StepSequence)[4]; 
+
+void rotateMotor(int steps,bool isFast, bool clockwise);
