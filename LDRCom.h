@@ -2,7 +2,12 @@
 
 int setupLDR();
 
-struct SensorData;
+struct SensorData {
+  int data1;
+  int data2;
+  int data3;
+  int data4;
+};
 
 SensorData returnAllData();
 
